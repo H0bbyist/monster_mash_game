@@ -1,18 +1,20 @@
 import pygame
 
 
+
 def main():
     width = 500
     height = 500
-    white_color = (0, 0, 0)
+    white_color = (255, 255, 255)
     blue_color = (97, 159, 182)
-    bg = ()
+    
+  
 
     pygame.init()
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('My Game')
     clock = pygame.time.Clock()
-
+    bg = pygame.image.load("monster_game_tools/images/background.png")
     # Game initialization
 
     stop_game = False
@@ -26,9 +28,10 @@ def main():
 
 
         # Game logic
-
+        
         # Draw background
         screen.fill(white_color)
+        screen.blit(bg, (0, 0))
 
         # Game display
 
