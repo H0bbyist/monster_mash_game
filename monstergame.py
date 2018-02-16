@@ -14,7 +14,7 @@ class Monster:
     self.xdirection = 2
     self.ydirection = 1
     self.image = pygame.image.load("monster_game_tools/images/monster.png")
-
+    
   def move(self):
     self.counter += 1
     if self.counter > 60:
@@ -23,15 +23,15 @@ class Monster:
       self.counter = 0
     
     if self.xdirection == 1:
-      self.x += 5
+      self.x += 2
     elif self.xdirection == 2:
-      self.x -= 5
+      self.x -= 2
     else:
       self.x += 0
     if self.ydirection == 1:
-      self.y += 5
+      self.y += 2
     elif self.ydirection == 2:
-      self.y -= 5
+      self.y -= 2
     else:
       self.y += 0
     if self.x > 512:
@@ -42,27 +42,74 @@ class Monster:
       self.y = 0
     if self.y < 0:
       self.y = 480
-    
 
+  def alive(self):
+    if h.x + 32 < m.x:
+      return True
+    if m.x + 32 < h.x:
+      return True
+    if h.y + 32 < m.y:
+      return True
+    if m.y + 32 < h.y:
+      return True
+    else:
+      return False
+  
+    
 class Hero:
-  def __init__(self):
+  def __init__(self,x, y):
     self.x = 240
     self.y = 190
-    self.counter = 0
+    self.xdir = x
+    self.ydir = y
     self.image = pygame.image.load("monster_game_tools/images/hero.png")
 
   def move(self):
-    self.x += x
-    self.y += y
-      
-     
+    self.x += self.xdir
+    self.y += self.ydir
+    if self.x > 455:
+      self.x = 455
+    elif self.x < 25:
+      self.x = 25
+    if self.y > 415:
+      self.y = 415
+    elif self.y < 10:
+      self.y = 10
+  
+  def alive(self):
+      if h.x + 32 < m.x:
+        return True
+      elif m.x + 32 < h.x:
+        return True
+      elif h.y + 32 < m.x:
+        return True
+      elif m.x + 32 < h.x:
+        return True
+      else:
+        return False
+
+         
 class Goblin:
   def __init__(self):
-    self.x = 0
-    self.y = 0
+    self.x = 50
+    self.y = 300
     self.counter = 0
     self.direction = 0
     self.image = pygame.image.load("monster_game_tools/images/goblin.png")
+
+
+class Win:
+  def sequence(self):
+    pygame.mixer.music.load("monster_game_tools/sounds/win.wav")
+    pygame.mixer.music.play(0)
+    
+    
+
+class Lose:
+  def sequence(self):
+    pygame.mixer.music.load("monster_game_tools/sounds/lose.wav")
+    pygame.mixer.music.play(0)
+    
 
 
 def main():
@@ -71,11 +118,18 @@ def main():
     white_color = (255, 255, 255)
     
     pygame.init()
+    pygame.font.init()
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('Monster Mash!')
     clock = pygame.time.Clock()
     bg = pygame.image.load("monster_game_tools/images/background.png")
-  
+
+    monsdead = False
+    myfont = pygame.font.SysFont("", 50)
+    winstatement = myfont.render('You Killed the Monster!', False, (255, 255, 255))
+    playagain = myfont.render("Play Again? Press Enter", False, (255, 255, 255))
+
+    
     # Game initialization
 
     stop_game = False
@@ -83,18 +137,28 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
               if event.key == KEY_UP:
-                  
+                  h.xdir = 0
+                  h.ydir = -3
               elif event.key == KEY_DOWN:
-                  
+                  h.xdir = 0
+                  h.ydir = 3
               elif event.key == KEY_LEFT:
-                  
+                  h.xdir = -3
+                  h.ydir = 0
               elif event.key == KEY_RIGHT:
-                  
+                  h.xdir = 3
+                  h.ydir = 0
 
 
+            if not m.alive():
+              w.sequence()
+              monsdead = True
+            
+            if event.type == pygame.KEYDOWN:
+              if event.key == pygame.K_RETURN:
+                monsdead = False
 
-
-            # Event handling
+            
 
             if event.type == pygame.QUIT:
                 stop_game = True
@@ -103,13 +167,22 @@ def main():
         # Game logic
         m.move()
         h.move()
+        
+        
+        
       
 
         # Draw background
-        screen.fill(white_color)
+        
         screen.blit(bg, (0, 0))
         screen.blit(h.image, (h.x, h.y))
-        screen.blit(m.image, (m.x, m.y))
+        if monsdead == False:
+          screen.blit(m.image, (m.x, m.y))
+        else:
+          screen.blit(winstatement, (50,200))
+          screen.blit(playagain, (50, 230))
+       
+        
 
         # Game display
 
@@ -119,9 +192,11 @@ def main():
     pygame.quit()
 
 if __name__ == '__main__':
-    h = Hero()
+    h = Hero(0,0)
     m = Monster()
     g = Goblin()
+    w = Win()
+    l = Lose()
     main()
 
 
