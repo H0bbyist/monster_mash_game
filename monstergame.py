@@ -100,7 +100,7 @@ class Goblin:
 
   def move(self):
     self.counter += 1
-    if self.counter > 120:
+    if self.counter > 180:
       self.xdirection = random.randint(1, 3)
       self.ydirection = random.randint(1, 3)
       self.counter = 0
@@ -157,7 +157,7 @@ def main():
     monsdead = False
     myfont = pygame.font.SysFont("", 50)
     winstatement = myfont.render('You Killed the Monster!', False, (0, 0, 0))
-    losestatement = myfont.render("The goblin killed you!", False, (0, 0, 0))
+    losestatement = myfont.render("The Goblin Killed You!", False, (0, 0, 0))
     playagain = myfont.render("Play Again? Press Enter", False, (0, 0, 0))
     pygame.mixer.music.load("monster_game_tools/sounds/music.wav")
     pygame.mixer.music.play(-1)
@@ -211,7 +211,6 @@ def main():
         g.move()
         
         
-        
       
 
         # Draw background
@@ -219,6 +218,7 @@ def main():
         screen.blit(bg, (0, 0))
         
         screen.blit(g.image, (g.x, g.y))
+        
         if herdead == False:
           screen.blit(h.image, (h.x, h.y))
         else:
