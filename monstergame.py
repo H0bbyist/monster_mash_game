@@ -81,9 +81,9 @@ class Hero:
         return True
       elif h.x + 32 < g.x:
         return True
-      elif g.y + 32 < h.x:
+      elif g.y + 32 < h.y:
         return True
-      elif h.x + 32 < g.x:
+      elif h.y + 32 < g.y:
         return True
       else:
         return False
