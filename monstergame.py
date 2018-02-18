@@ -77,13 +77,13 @@ class Hero:
       self.y = 10
   
   def alive(self):
-      if g.x + 32 < h.x:
+      if g1.x + 32 < h.x:
         return True
-      elif h.x + 32 < g.x:
+      elif h.x + 32 < g1.x:
         return True
-      elif g.y + 32 < h.y:
+      elif g1.y + 32 < h.y:
         return True
-      elif h.y + 32 < g.y:
+      elif h.y + 32 < g1.y:
         return True
       else:
         return False
@@ -91,10 +91,10 @@ class Hero:
          
 class Goblin:
   def __init__(self):
-    self.x = 50
-    self.y = 300
+    self.x = random.randint(1, 500)
+    self.y = random.randint(1, 500)
     self.counter = 0
-    self.xdirection = 1
+    self.xdirection = 2
     self.ydirection = 1
     self.image = pygame.image.load("monster_game_tools/images/goblin.png")
 
@@ -106,15 +106,15 @@ class Goblin:
       self.counter = 0
     
     if self.xdirection == 1:
-      self.x += 1
+      self.x += 2
     elif self.xdirection == 2:
-      self.x -= 1
+      self.x -= 2
     else:
       self.x += 0
     if self.ydirection == 1:
-      self.y += 1
+      self.y += 2
     elif self.ydirection == 2:
-      self.y -= 1
+      self.y -= 2
     else:
       self.y += 0
     if self.x > 512:
@@ -131,9 +131,8 @@ class Win:
   def sequence(self):
     pygame.mixer.music.load("monster_game_tools/sounds/win.wav")
     pygame.mixer.music.play(0)
+  
     
-    
-
 class Lose:
   def sequence(self):
     pygame.mixer.music.load("monster_game_tools/sounds/lose.wav")
@@ -197,9 +196,6 @@ def main():
                 herdead = False
                 pygame.mixer.music.load("monster_game_tools/sounds/music.wav")
                 pygame.mixer.music.play(-1)
-                
-
-            
 
             if event.type == pygame.QUIT:
                 stop_game = True
@@ -208,16 +204,16 @@ def main():
         # Game logic
         m.move()
         h.move()
-        g.move()
+        g1.move()
         
-        
-      
 
         # Draw background
         
         screen.blit(bg, (0, 0))
         
-        screen.blit(g.image, (g.x, g.y))
+        screen.blit(g1.image, (g1.x, g1.y))
+        screen.blit(g1.image, (g1.x, g1.y))
+        
         
         if herdead == False:
           screen.blit(h.image, (h.x, h.y))
@@ -243,7 +239,8 @@ def main():
 if __name__ == '__main__':
     h = Hero(0,0)
     m = Monster()
-    g = Goblin()
+    g1 = Goblin()
+    
     w = Win()
     l = Lose()
     main()
