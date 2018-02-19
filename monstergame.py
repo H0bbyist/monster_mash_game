@@ -76,14 +76,14 @@ class Hero:
     elif self.y < 10:
       self.y = 10
   
-  def alive(self):
-      if g1.x + 32 < h.x:
+  def alive(self,gob):
+      if gob.x + 32 < h.x:
         return True
-      elif h.x + 32 < g1.x:
+      elif h.x + 32 < gob.x:
         return True
-      elif g1.y + 32 < h.y:
+      elif gob.y + 32 < h.y:
         return True
-      elif h.y + 32 < g1.y:
+      elif h.y + 32 < gob.y:
         return True
       else:
         return False
@@ -186,9 +186,22 @@ def main():
               w.sequence()
               monsdead = True
 
-            if not h.alive():
+            if not h.alive(g1):
               l.sequence()
               herdead = True
+
+            
+            if not h.alive(g2):
+              l.sequence()
+              herdead = True
+            
+
+            if not h.alive(g3):
+              l.sequence()
+              herdead = True
+            
+
+            
             
             if event.type == pygame.KEYDOWN:
               if event.key == pygame.K_RETURN:
@@ -205,6 +218,8 @@ def main():
         m.move()
         h.move()
         g1.move()
+        g2.move()
+        g3.move()
         
 
         # Draw background
@@ -212,7 +227,8 @@ def main():
         screen.blit(bg, (0, 0))
         
         screen.blit(g1.image, (g1.x, g1.y))
-        screen.blit(g1.image, (g1.x, g1.y))
+        screen.blit(g2.image, (g2.x, g2.y))
+        screen.blit(g3.image, (g3.x, g3.y))
         
         
         if herdead == False:
@@ -240,7 +256,8 @@ if __name__ == '__main__':
     h = Hero(0,0)
     m = Monster()
     g1 = Goblin()
-    
+    g2 = Goblin()
+    g3 = Goblin()
     w = Win()
     l = Lose()
     main()
