@@ -1,6 +1,4 @@
-# python_game
-
-Monster Mash Game!
+# Monster Mash Game!
 
 You have to catch the monster but avoid being caught by the goblins.
 
