@@ -181,7 +181,7 @@ def main():
                   h.xdir = 3
                   h.ydir = 0
 
-
+            
             if not m.alive():
               w.sequence()
               monsdead = True
@@ -190,12 +190,10 @@ def main():
               l.sequence()
               herdead = True
 
-            
             if not h.alive(g2):
               l.sequence()
               herdead = True
-            
-
+        
             if not h.alive(g3):
               l.sequence()
               herdead = True
