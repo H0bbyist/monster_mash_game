@@ -19,7 +19,7 @@ you will need python3 and pygame installed on your system to run this game!
 ## Built With
 
 * [Python 3](https://www.pygame.org/news) - Python programming language
-* [Pygame](https://www.pygame.org/news) - Pythons game library
+* [Pygame](https://www.pygame.org/news) - Pythons game creation library
 
 ## Contributing
 
