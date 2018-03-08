@@ -1,7 +1,7 @@
 # Monster Mash Game!
 
 A game in which the hero (you) is chasing the green monster (not you)
-Just make sure the goblins dont catch you
+Just make sure the goblins dont catch you first
 
 <img src="Screenshot1.png" width="600px">
 
